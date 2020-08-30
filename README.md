@@ -1,1 +1,1 @@
-# pi_projected_gradient_demo
+# Proportional-integral Projected Gradient Method for MPC
