@@ -1,1 +1,1 @@
-# Proportional-integral Projected Gradient Method for MPC
+# Proportional-integral Projected Gradient Algorithm for MPC
