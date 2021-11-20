@@ -1,7 +1,3 @@
-# TODO
-# pre-process all assertions
-# make sure that while warm-starting at least one loop is allowed to run
-
 module proj
 using LinearAlgebra
 # ! indicates that the variable is modified
