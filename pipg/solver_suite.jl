@@ -420,7 +420,8 @@ module rival
 	using ..asm									# assembly of auxiliary parameters
 	using ..jump
 	using LinearAlgebra, StaticArrays, Plots, LaTeXStrings
-	pgfplotsx()
+	gr()
+	default(xtickfontsize=11,ytickfontsize=11,ztickfontsize=11,legendfontsize=9,labelfontsize=11)
 
 	# useful constants
 	const nx = copy(prb.nx)
@@ -568,18 +569,12 @@ module rival
 			plot!(1:prb.kmax,rd2o_2,line=:solid,color=:orange,lab="PDHG",lw=1.1,yaxis=:log)
 			plot!(size=(400,500),legend=:none,xlim=[1,prb.kmax],ylim=[1e-15,1e1])
 
-			# savefig(plt_d2o,"./results/quad_rd2o.pdf")
-			# savefig(plt_d2o,"./results/masses_rd2o.pdf")
-
 			plt_rfval = plot(1:prb.kmax,pipg.rfval,line=:solid,color=:magenta,title=L"\frac{|f(z)-f(z^{\star})|}{|f(z^{\star})|}",lab="PIPG",lw=1.1,yaxis=:log,xlabel="Iterations") 
 			plot!(1:prb.kmax,pipg.rfval_restrt,line=:solid,color=:red,lab="PIPG w/ restart",lw=1.1,yaxis=:log)
 			plot!(1:prb.kmax,pipg.rfval_eq,line=:solid,color=:purple,lab="PIPGeq",lw=1.1,yaxis=:log)
 			plot!(1:prb.kmax,rfval,line=:solid,color=:green,lab="ADMM",lw=1.1,yaxis=:log)
 			plot!(1:prb.kmax,rfval_2,line=:solid,color=:orange,lab="PDHG",lw=1.1,yaxis=:log)
 			plot!(size=(400,500),legend=:none,xlim=[1,prb.kmax],ylim=[1e-15,1e1])
-
-			# savefig(plt_fval,"./results/quad_rfval.pdf")
-			# savefig(plt_fval,"./results/masses_rfval.pdf")
 
 			plt_nest_iter = plot(1:prb.kmax,nest_iter_count,line=:solid,color=:purple,title="Nesterov iteration count in ADMM",lw=1.1,xlabel="Outer iterations",lab="")
 			plot!(1:prb.kmax,prb.kmax_nest .* ones(prb.kmax),line=:dash,lw=1.5,lab="Max iterations",color=:black,size=(1200,500))
@@ -591,151 +586,8 @@ module rival
 			plot!(1:prb.kmax,rd2K_2,line=:solid,color=:orange,lab="PDHG",lw=1.1,yaxis=:log)	
 			plot!(size=(400,500),legend=:topright,xlim=[1,prb.kmax],ylim=[1e-15,1e1])
 
-			# savefig(plt_feas,"./results/quad_rd2K.pdf")
-			# savefig(plt_feas,"./results/masses_rd2K.pdf")
-
 			λ = @layout [a b c ; d]
 			display(plot(plt_d2o,plt_rfval,plt_feas,plt_nest_iter,layout=λ,size=(4*1200/5,4*1000/5)))
-	end
-
-end
-
-# monte carlo data storage
-module data_mc
-	using ..prb
-	using Plots, LaTeXStrings
-	pgfplotsx()
-	default(xtickfontsize=24,ytickfontsize=24,ztickfontsize=24,legendfontsize=20,labelfontsize=24)
-
-	rd2o = zeros(prb.kmax)
-	rd2o_rst = zeros(prb.kmax)
-	rd2o_eq = zeros(prb.kmax)
-	rd2o_admm = zeros(prb.kmax)
-	rd2o_cp = zeros(prb.kmax)
-
-	max_rd2o = zeros(prb.kmax)
-	max_rd2o_rst = zeros(prb.kmax)
-	max_rd2o_eq = zeros(prb.kmax)
-	max_rd2o_admm = zeros(prb.kmax)
-	max_rd2o_cp = zeros(prb.kmax)
-
-	rd2K = zeros(prb.kmax)
-	rd2K_rst = zeros(prb.kmax)
-	rd2K_eq = zeros(prb.kmax)
-	rd2K_admm = zeros(prb.kmax)
-	rd2K_cp = zeros(prb.kmax)
-
-	max_rd2K = zeros(prb.kmax)
-	max_rd2K_rst = zeros(prb.kmax)
-	max_rd2K_eq = zeros(prb.kmax)
-	max_rd2K_admm = zeros(prb.kmax)
-	max_rd2K_cp = zeros(prb.kmax)
-
-	function set_rd2o_data!(Rd2o,Rd2o_rst,Rd2o_eq,Rd2o_admm,Rd2o_cp,mRd2o,mRd2o_rst,mRd2o_eq,mRd2o_admm,mRd2o_cp)
-		rd2o .= Rd2o
-		rd2o_rst .= Rd2o_rst
-		rd2o_eq .= Rd2o_eq
-		rd2o_admm .= Rd2o_admm
-		rd2o_cp .= Rd2o_cp 
-
-		max_rd2o .= mRd2o
-		max_rd2o_rst .= mRd2o_rst
-		max_rd2o_eq .= mRd2o_eq
-		max_rd2o_admm .= mRd2o_admm
-		max_rd2o_cp .= mRd2o_cp 
-	end
-
-	function set_rd2K_data!(Rd2K,Rd2K_rst,Rd2K_eq,Rd2K_admm,Rd2K_cp,mRd2K,mRd2K_rst,mRd2K_eq,mRd2K_admm,mRd2K_cp)
-		rd2K .= Rd2K
-		rd2K_rst .= Rd2K_rst
-		rd2K_eq .= Rd2K_eq
-		rd2K_admm .= Rd2K_admm
-		rd2K_cp .= Rd2K_cp 
-
-		max_rd2K .= mRd2K
-		max_rd2K_rst .= mRd2K_rst
-		max_rd2K_eq .= mRd2K_eq
-		max_rd2K_admm .= mRd2K_admm
-		max_rd2K_cp .= mRd2K_cp 
-	end
-
-	plot_solstat() = begin plt_d2o = plot(1:prb.kmax,rd2o,fillrange=2*max_rd2o,fillalpha=0.5,line=:solid,linealpha=0.0,color=:magenta,lab="PIPG",lw=1.1,yaxis=:log,xlabel=L"j") 
-			plot!(1:prb.kmax,rd2o_rst,fillrange=2*max_rd2o_rst,fillalpha=0.5,line=:solid,linealpha=0.0,color=:red,lab="PIPG w/ restart",lw=1.1,yaxis=:log)
-			plot!(1:prb.kmax,rd2o_eq,fillrange=2*max_rd2o_eq,fillalpha=0.5,line=:solid,linealpha=0.0,color=:purple,lab="PIPGeq",lw=1.1,yaxis=:log)
-			plot!(1:prb.kmax,rd2o_admm,fillrange=2*max_rd2o_admm,fillalpha=0.5,line=:solid,linealpha=0.0,color=:green,lab="ADMM",lw=1.1,yaxis=:log)
-			plot!(1:prb.kmax,rd2o_cp,fillrange=2*max_rd2o_cp,fillalpha=0.5,line=:solid,linealpha=0.0,color=:orange,lab="PDHG",lw=1.1,yaxis=:log)
-			# title=L"\frac{\|z-z^{\star}\|_2^2}{\|z^{\star}\|_2^2}"
-
-			plot!(size=(400,500),legend=:none,xlim=[1,prb.kmax],ylim=[1e-15,1e1])
-
-			# savefig(plt_d2o,"./results/quad_rd2o_mc_v3.pdf")
-			# savefig(plt_d2o,"./results/masses_rd2o_mc_v3.pdf")
-
-			# plt_rfval = plot(1:prb.kmax,rfval,ribbon=max_rfval,line=:solid,color=:magenta,title=L"\frac{|f(z)-f(z^{\star})|}{|f(z^{\star})|}",lab="PIPG",lw=1.1,yaxis=:log,xlabel=L"j") 
-			# plot!(1:prb.kmax,rfval_rst,ribbon=max_rfval_rst,line=:solid,color=:red,lab="PIPG w/ restart",lw=1.1,yaxis=:log)
-			# plot!(1:prb.kmax,rfval_eq,ribbon=max_rfval_eq,line=:solid,color=:purple,lab="PIPGeq",lw=1.1,yaxis=:log)
-			# plot!(1:prb.kmax,rfval_admm,ribbon=max_rfval_admm,line=:solid,color=:green,lab="ADMM",lw=1.1,yaxis=:log)
-			# plot!(1:prb.kmax,rfval_cp,ribbon=max_rfval_cp,line=:solid,color=:orange,lab="PDHG",lw=1.1,yaxis=:log)
-			# plot!(size=(400,500),legend=:none,xlim=[1,prb.kmax],ylim=[1e-15,1e1])
-
-			# savefig(plt_fval,"./results/quad_rfval.pdf")
-			# savefig(plt_fval,"./results/masses_rfval.pdf")
-
-			plt_feas = plot(1:prb.kmax,rd2K,fillrange=2*max_rd2K,fillalpha=0.5,line=:solid,linealpha=0.0,color=:magenta,lab="PIPG",lw=1.1,xlabel=L"j",yaxis=:log)
-			plot!(1:prb.kmax,rd2K_rst,fillrange=2*max_rd2K_rst,fillalpha=0.5,line=:solid,linealpha=0.0,color=:red,lab="PIPG w/ restart",lw=1.1,yaxis=:log)
-			plot!(1:prb.kmax,rd2K_eq,fillrange=2*max_rd2K_eq,fillalpha=0.5,line=:solid,linealpha=0.0,color=:purple,lab="PIPGeq",lw=1.1,yaxis=:log)
-			plot!(1:prb.kmax,rd2K_admm,fillrange=2*max_rd2K_admm,fillalpha=0.5,line=:solid,linealpha=0.0,color=:green,lab="ADMM",lw=1.1,yaxis=:log)
-			plot!(1:prb.kmax,rd2K_cp,fillrange=2*max_rd2K_cp,fillalpha=0.5,line=:solid,linealpha=0.0,color=:orange,lab="PDHG",lw=1.1,yaxis=:log)	
-			plot!(size=(400,500),legend=:topright,xlim=[1,prb.kmax],ylim=[1e-20,1e1]) # legend = :topright
-			# title=L"\frac{d_{K}(Hz-g)}{\|z^{\star}\|_2^2}"
-
-			# savefig(plt_feas,"./results/quad_rd2K_mc_v3.pdf")
-			# savefig(plt_feas,"./results/masses_rd2K_mc_v3.pdf")
-
-			# λ = @layout [a b c ; d]
-			# display(plot(plt_d2o,plt_rfval,plt_feas,plt_nest_iter,layout=λ,size=(4*1200/5,4*1000/5)))
-
-			λ = @layout [a b]
-			display(plot(plt_d2o,plt_feas,layout=λ,size=(800,500)))
-	end
-end
-
-module data_record
-
-	using ..prb
-	using Plots
-	pgfplotsx()
-
-	const restart_idx = [10,20,35,40,50,65]
-	# const restart_idx = [10,50,100,150,200,300]
-	# const restart_idx = [10,50,100,150,200,250,300,400,700,1000]	
-	rd2o = [randn(prb.kmax) for _ in 1:length(restart_idx)]
-	rd2K = [randn(prb.kmax) for _ in 1:length(restart_idx)]
-	rfval = [randn(prb.kmax) for _ in 1:length(restart_idx)]
-
-	plot_solstat() = begin
-		N = length(restart_idx)
-		ln_clr = (:red,:blue,:purple,:orange,:black,:brown,:green,:magenta,:cyan,:orchid,:teal,:gray)
-		print("Restart performance of PIPG+\n")
-		plt_rd2o = plot(1:prb.kmax,rd2o[1],title="Relative distance to optimum",lab="$(restart_idx[1])",line=:solid,color=ln_clr[1],lw=1,yaxis=:log,xlabel="Iterations")
-		for j=2:N
-			plot!(1:prb.kmax,rd2o[j],lab="$(restart_idx[j])",line=:solid,color=ln_clr[j],lw=1,yaxis=:log)
-		end
-		plot!(size=(400,500),xlim=[1,prb.kmax],legend=:none)
-
-		plt_rfval = plot(1:prb.kmax,rfval[1],title="Relative cost value decrease",lab="$(restart_idx[1])",line=:solid,color=ln_clr[1],lw=1,yaxis=:log,xlabel="Iterations")
-		for j=2:N
-			plot!(1:prb.kmax,rfval[j],lab="$(restart_idx[j])",line=:solid,color=ln_clr[j],lw=1,yaxis=:log)
-		end
-		plot!(size=(400,500),xlim=[1,prb.kmax],legend=:none)
-
-		plt_rd2K = plot(1:prb.kmax,rd2K[1],title="Relative feasibility",lab="$(restart_idx[1])",line=:solid,color=ln_clr[1],lw=1,yaxis=:log,xlabel="Iterations")
-		for j=2:N
-			plot!(1:prb.kmax,rd2K[j],lab="$(restart_idx[j])",line=:solid,color=ln_clr[j],lw=1,yaxis=:log)
-		end
-		plot!(size=(400,500))
-		λ = @layout [a b c]
-		display(plot(plt_rd2o,plt_rfval,plt_rd2K,layout=λ,size=[4*1200/5,4*500/5]))	    
 	end
 
 end

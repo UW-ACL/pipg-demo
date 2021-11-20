@@ -19,7 +19,7 @@ module prb
 
 	# solution method settings
 		# common
-		const kmax = 2000										# max iterations for main algorithms (and outer loop)
+		const kmax = 500										# max iterations for main algorithms (and outer loop)
 		const scale_Hg = true
 		
 		# JuMP
@@ -76,7 +76,7 @@ module prb
 
 end
 
-include("../pipg_toolkit/proj_funcs.jl") 		# projection library
+include("proj_funcs.jl") 		# projection library
 
 # assemble quantities for vectorized PIPG+ implementation
 module asm
@@ -106,7 +106,7 @@ module asm
 		end
 
 		if scale_Hg
-			print("Scaling rows of H\n")
+			# print("Scaling rows of H\n")
 			for j=1:length(norm_row_H)
 				H[j,1:end] .= H[j,1:end] ./ norm_row_H[j]
 			end
@@ -133,7 +133,7 @@ module asm
 	const h = cat([cat(-prb.R[t]*prb.uref[t], -prb.Q[t]*prb.xref[t], dims=1) for t=1:prb.N-1]...,dims=1)
 
 	if scale_Hg
-		print("Scaling components of g\n")
+		# print("Scaling components of g\n")
 		const scl_val_Hg = norm_row_H	
 	else
 		const scl_val_Hg = 1.0

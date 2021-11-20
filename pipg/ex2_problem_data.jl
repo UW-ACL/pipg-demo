@@ -163,7 +163,7 @@ module prb2
 end
 
 
-include("../pipg_toolkit/proj_funcs.jl") 					# projection library
+include("proj_funcs.jl") 					# projection library
 
 # assemble quantities for vectorized PIPG+ implementation
 module asm
@@ -317,8 +317,7 @@ end
 module plotter
 using LinearAlgebra
 using Plots, LaTeXStrings
-using MATLAB
-pgfplotsx()
+gr()
 # This ensures that a legend entry is not created by default
 default(lab="",markersize=2,markerstrokewidth=0.1,xtickfontsize=12,ytickfontsize=12,
 	ztickfontsize=12,legendfontsize=9)
@@ -401,87 +400,5 @@ function trajectory2D(x1,u1,x2,u2,slver=:ecos,pltflg=true)
 		display(p0)
 	end
 end
-
-function trajectory3D(x,u,y)
-	Nx = length(x)
-	Nu = length(u)
-	Ny = length(y)
-
-	xm = [zeros(prb.nx) for _ in 1:Nx]
-	um = [zeros(prb.nu) for _ in 1:Nu]
-	ym = [zeros(prb.nx) for _ in 1:Ny]
-	xm .= x
-	um .= u
-	ym .= y
-
-	p1m = zeros(3);
-	p2m = zeros(3);
-	p3m = zeros(3);
-	p1m .= prb.p1
-	p2m .= prb.p2
-	p3m .= prb.p3
-
-	mat"""
-	setfig;
-
-	Nx = $(Nx);
-	Nu = $(Nu);
-	Ny = $(Ny);
-	nx = $(prb.nx);
-	nu = $(prb.nu);
-	x = zeros(nx,Nx);
-	u = zeros(nu,Nu);
-	y = zeros(nx,Ny);
-	for j=1:Nx
-		x(:,j) = $(xm){j};
-	end
-	for j=1:Nu
-		u(:,j) = $(um){j};
-	end
-	for j=1:Ny
-		y(:,j) = $(ym){j};
-	end
-
-	r1 = $(prb.r1);
-	r2 = $(prb.r2);
-	r3 = $(prb.r3);
-	p1 = $(p1m);
-	p2 = $(p2m);
-	p3 = $(p3m);
-
-	figure
-	[x1,y1,z1] = cylinder();
-	z1 = 5*(z1*2-1);
-
-	surf(r1*x1+p1(1),r1*y1+p1(2),z1,'EdgeAlpha',0.1,'FaceAlpha',0.1);
-	hold on
-	surf(r3*x1+p3(1),r3*y1+p3(2),z1,'EdgeAlpha',0.1,'FaceAlpha',0.1);
-	surf(r2*x1+p2(1),r2*y1+p2(2),z1,'EdgeAlpha',0.1,'FaceAlpha',0.1);
-
-	plt1 = plot3(x(1,:),x(2,:),x(3,:),'.-b','LineWidth',2,'DisplayName','Solution');
-	plt2 = plot3(y(1,:),y(2,:),y(3,:),'.-r','LineWidth',2,'DisplayName','Reference');
-	xlabel('\$x\$');
-	ylabel('\$y\$');
-	zlabel('\$z\$');
-	plt3 = plot(x(1,1),x(2,1),'ob');
-	view(-88,46);
-
-	scl_u = -0.05;
-	for j=1:Nu
-		if j==1
-			plt4 = quiver3(x(1,j),x(2,j),x(3,j),scl_u*u(1,j),scl_u*u(2,j),scl_u*u(3,j),'-m','LineWidth',2);
-		else
-			quiver3(x(1,j),x(2,j),x(3,j),scl_u*u(1,j),scl_u*u(2,j),scl_u*u(3,j),'-m','LineWidth',2);
-		end
-	end
-	legend([plt1,plt2,plt3,plt4],{'Solution','Reference','\$t=0\$','Thrust'});
-
-	title('Quadrotor Planning');
-
-	axis equal;
-
-	"""
-end
-
 
 end
