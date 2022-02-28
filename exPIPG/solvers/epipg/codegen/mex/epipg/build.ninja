@@ -1,0 +1,51 @@
+# CompilerName=clang
+# Mode=optim
+ninja_required_version = 1.3
+
+# Basic folders
+root = .
+builddir = $root/build/maci64
+matlabdir = /Applications/MATLAB_R2021b.app
+startdir = /Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg
+
+# Toolchain information
+cc = /usr/bin/xcrun -sdk macosx12.1 clang
+cxx = /usr/bin/xcrun -sdk macosx12.1 clang++
+linker = /usr/bin/xcrun -sdk macosx12.1 clang
+linkerxx = /usr/bin/xcrun -sdk macosx12.1 clang++
+
+cflags =  -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I "$root" -I "$startdir" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=epipg_mex -c 
+
+cxxflags =  -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c++11 -I "$root" -I "$startdir" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=epipg_mex -c 
+
+ldflags =  -Wl,-twolevel_namespace -undefined error -arch x86_64 -mmacosx-version-min=10.15 -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -bundle   -L"$matlabdir/bin/maci64" -lmx -lmex -lmat -lc++  -Wl,-rpath,@loader_path -o epipg_mex.mexmaci64 -L"$matlabdir/bin/maci64" -lmwblas -lemlrt -lcovrt -lut -lmwmathutil  -Wl,-exported_symbols_list,epipg_mex.map
+
+# Build Rules
+rule cc
+    command = $cc $cflags $in -o $out
+
+rule cxx
+    command = $cxx $cxxflags $in -o $out
+
+rule link
+    command = $linker $in $ldflags
+
+rule linkxx
+    command = $linkerxx $in $ldflags
+
+# Build
+build $builddir/epipg_data.o : cc $root/epipg_data.c
+build $builddir/rt_nonfinite.o : cc $root/rt_nonfinite.c
+build $builddir/epipg_initialize.o : cc $root/epipg_initialize.c
+build $builddir/epipg_terminate.o : cc $root/epipg_terminate.c
+build $builddir/tic.o : cc $root/tic.c
+build $builddir/timeKeeper.o : cc $root/timeKeeper.c
+build $builddir/toc.o : cc $root/toc.c
+build $builddir/_coder_epipg_api.o : cc $root/interface/_coder_epipg_api.c
+build $builddir/_coder_epipg_mex.o : cc $root/interface/_coder_epipg_mex.c
+build $builddir/epipg.o : cc $root/epipg.c
+build $builddir/_coder_epipg_info.o : cc $root/interface/_coder_epipg_info.c
+build $builddir/c_mexapi_version.o : cc $matlabdir/extern/version/c_mexapi_version.c
+
+# Link
+build $root/epipg_mex.mexmaci64 : link $builddir/epipg_data.o $builddir/rt_nonfinite.o $builddir/epipg_initialize.o $builddir/epipg_terminate.o $builddir/tic.o $builddir/timeKeeper.o $builddir/toc.o $builddir/_coder_epipg_api.o $builddir/_coder_epipg_mex.o $builddir/epipg.o $builddir/_coder_epipg_info.o $builddir/c_mexapi_version.o 

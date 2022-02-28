@@ -1,0 +1,74 @@
+[
+  {
+    "directory": "/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg/codegen/mex/epipg",
+    "command": "/usr/bin/xcrun -sdk macosx12.1 clang -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg\" -I \"./interface\" -I \"/Applications/MATLAB_R2021b.app/extern/include\" -I \".\" -DMODEL=epipg_mex -c  epipg_data.c -o build/maci64/epipg_data.o",
+    "file": "epipg_data.c",
+    "output": "build/maci64/epipg_data.o"
+  },
+  {
+    "directory": "/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg/codegen/mex/epipg",
+    "command": "/usr/bin/xcrun -sdk macosx12.1 clang -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg\" -I \"./interface\" -I \"/Applications/MATLAB_R2021b.app/extern/include\" -I \".\" -DMODEL=epipg_mex -c  rt_nonfinite.c -o build/maci64/rt_nonfinite.o",
+    "file": "rt_nonfinite.c",
+    "output": "build/maci64/rt_nonfinite.o"
+  },
+  {
+    "directory": "/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg/codegen/mex/epipg",
+    "command": "/usr/bin/xcrun -sdk macosx12.1 clang -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg\" -I \"./interface\" -I \"/Applications/MATLAB_R2021b.app/extern/include\" -I \".\" -DMODEL=epipg_mex -c  epipg_initialize.c -o build/maci64/epipg_initialize.o",
+    "file": "epipg_initialize.c",
+    "output": "build/maci64/epipg_initialize.o"
+  },
+  {
+    "directory": "/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg/codegen/mex/epipg",
+    "command": "/usr/bin/xcrun -sdk macosx12.1 clang -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg\" -I \"./interface\" -I \"/Applications/MATLAB_R2021b.app/extern/include\" -I \".\" -DMODEL=epipg_mex -c  epipg_terminate.c -o build/maci64/epipg_terminate.o",
+    "file": "epipg_terminate.c",
+    "output": "build/maci64/epipg_terminate.o"
+  },
+  {
+    "directory": "/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg/codegen/mex/epipg",
+    "command": "/usr/bin/xcrun -sdk macosx12.1 clang -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg\" -I \"./interface\" -I \"/Applications/MATLAB_R2021b.app/extern/include\" -I \".\" -DMODEL=epipg_mex -c  tic.c -o build/maci64/tic.o",
+    "file": "tic.c",
+    "output": "build/maci64/tic.o"
+  },
+  {
+    "directory": "/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg/codegen/mex/epipg",
+    "command": "/usr/bin/xcrun -sdk macosx12.1 clang -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg\" -I \"./interface\" -I \"/Applications/MATLAB_R2021b.app/extern/include\" -I \".\" -DMODEL=epipg_mex -c  timeKeeper.c -o build/maci64/timeKeeper.o",
+    "file": "timeKeeper.c",
+    "output": "build/maci64/timeKeeper.o"
+  },
+  {
+    "directory": "/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg/codegen/mex/epipg",
+    "command": "/usr/bin/xcrun -sdk macosx12.1 clang -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg\" -I \"./interface\" -I \"/Applications/MATLAB_R2021b.app/extern/include\" -I \".\" -DMODEL=epipg_mex -c  toc.c -o build/maci64/toc.o",
+    "file": "toc.c",
+    "output": "build/maci64/toc.o"
+  },
+  {
+    "directory": "/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg/codegen/mex/epipg",
+    "command": "/usr/bin/xcrun -sdk macosx12.1 clang -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg\" -I \"./interface\" -I \"/Applications/MATLAB_R2021b.app/extern/include\" -I \".\" -DMODEL=epipg_mex -c  interface/_coder_epipg_api.c -o build/maci64/_coder_epipg_api.o",
+    "file": "interface/_coder_epipg_api.c",
+    "output": "build/maci64/_coder_epipg_api.o"
+  },
+  {
+    "directory": "/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg/codegen/mex/epipg",
+    "command": "/usr/bin/xcrun -sdk macosx12.1 clang -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg\" -I \"./interface\" -I \"/Applications/MATLAB_R2021b.app/extern/include\" -I \".\" -DMODEL=epipg_mex -c  interface/_coder_epipg_mex.c -o build/maci64/_coder_epipg_mex.o",
+    "file": "interface/_coder_epipg_mex.c",
+    "output": "build/maci64/_coder_epipg_mex.o"
+  },
+  {
+    "directory": "/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg/codegen/mex/epipg",
+    "command": "/usr/bin/xcrun -sdk macosx12.1 clang -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg\" -I \"./interface\" -I \"/Applications/MATLAB_R2021b.app/extern/include\" -I \".\" -DMODEL=epipg_mex -c  epipg.c -o build/maci64/epipg.o",
+    "file": "epipg.c",
+    "output": "build/maci64/epipg.o"
+  },
+  {
+    "directory": "/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg/codegen/mex/epipg",
+    "command": "/usr/bin/xcrun -sdk macosx12.1 clang -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg\" -I \"./interface\" -I \"/Applications/MATLAB_R2021b.app/extern/include\" -I \".\" -DMODEL=epipg_mex -c  interface/_coder_epipg_info.c -o build/maci64/_coder_epipg_info.o",
+    "file": "interface/_coder_epipg_info.c",
+    "output": "build/maci64/_coder_epipg_info.o"
+  },
+  {
+    "directory": "/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg/codegen/mex/epipg",
+    "command": "/usr/bin/xcrun -sdk macosx12.1 clang -fno-common -arch x86_64 -mmacosx-version-min=10.15 -fexceptions -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/purnanandelango/Documents/pipg-demo/exPIPG/solvers/epipg\" -I \"./interface\" -I \"/Applications/MATLAB_R2021b.app/extern/include\" -I \".\" -DMODEL=epipg_mex -c  /Applications/MATLAB_R2021b.app/extern/version/c_mexapi_version.c -o build/maci64/c_mexapi_version.o",
+    "file": "/Applications/MATLAB_R2021b.app/extern/version/c_mexapi_version.c",
+    "output": "build/maci64/c_mexapi_version.o"
+  }
+]
