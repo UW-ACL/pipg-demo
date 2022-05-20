@@ -3,7 +3,7 @@
 Purnanand Elango
 
 Solve discrete-time optimal control problem using 
-exPIPG, OSQP, SCS, QUADPROG and YALMIP-MOSEK
+exPIPG, ECOS, MOSEK, SCS, OSQP and QUADPROG
 %}
 
 clear variables
@@ -14,21 +14,33 @@ addpath solvers
 addpath solvers/expipg/
 addpath utils
 
+n = 32;                       % State dimension
+m = n/2;                      % Input dimension
+N = 20;                       % Horizon length
+
 % x_max = 1; u_max = 0.1;     % Random system
 x_max = 1; u_max = 0.5;       % Oscillating masses   
 
-pp = problem_data(24,12,20,x_max,u_max,1);
-ppv = construct_vectorized(pp);
+pp = problem_data(32,16,20,x_max,u_max,1); % Structure with problem data
+ppv = construct_vectorized(pp);            % Structure with parameters of the vectorized problem 
 
-% codegen_expipg_varsize(pp,ppv,{'VEC','new_infeas'});
-% codegen_expipg_varsize(pp,ppv,{'DVEC','new_infeas'});
-% codegen_expipg_varsize(pp,ppv,{'VEC','old_infeas'});
-% codegen_expipg_varsize(pp,ppv,{'DVEC','old_infeas'});
+% Code generation for fixed problem size
+% Generated code will work only for the specific problem size
+% Executes faster than its variable size counterpart
 
 % codegen_expipg_constsize(pp,ppv,{'VEC','new_infeas'});
 % codegen_expipg_constsize(pp,ppv,{'DVEC','new_infeas'});
 % codegen_expipg_constsize(pp,ppv,{'VEC','old_infeas'});
 % codegen_expipg_constsize(pp,ppv,{'DVEC','old_infeas'});
+
+% Code generation for variable problem size 
+% Generated code will work for problems of different sizes
+% Executes slower that its constant size counterpart
+
+% codegen_expipg_varsize(pp,ppv,{'VEC','new_infeas'});
+% codegen_expipg_varsize(pp,ppv,{'DVEC','new_infeas'});
+% codegen_expipg_varsize(pp,ppv,{'VEC','old_infeas'});
+% codegen_expipg_varsize(pp,ppv,{'DVEC','old_infeas'});
 
 sol1 = solve_quadprog(pp,ppv);
 sol2 = solve_yalmip(pp);
