@@ -1,0 +1,9 @@
+.DS_Store
+*.asv
+codegen/
+# LaTeX build files
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.log
