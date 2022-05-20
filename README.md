@@ -18,7 +18,8 @@ Conic optimization solver PIPGeq specialized to affine equality constraint and c
   volume={5},
   number={6},
   pages={2174-2179},
-  doi={10.1109/LCSYS.2020.3044977}}
+  doi={10.1109/LCSYS.2020.3044977}
+}
 ```
 
 Conic optimization solver PIPG which can handle general conic constraints and convex set constraints which allow efficient projections.
@@ -46,7 +47,6 @@ Infeasibility detection using PIPG
   doi = {10.48550/ARXIV.2109.02756},  
   url = {https://arxiv.org/abs/2109.02756}
 }
-
 ```
 
 Extrapolated PIPG
@@ -73,5 +73,4 @@ Customized PIPG for real-time powered-descent guidance
   doi={10.2514/6.2022-0951}, 
   url={https://arc.aiaa.org/doi/abs/10.2514/6.2022-0951}
 }
-
 ```
