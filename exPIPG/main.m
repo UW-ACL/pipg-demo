@@ -2,7 +2,8 @@
 04/30/2022
 Purnanand Elango
 
-Solve discrete-time optimal control problem using 
+Solve discrete-time optimal control problem 
+for regulating a system of oscillating masses using 
 exPIPG, ECOS, MOSEK, SCS, OSQP and QUADPROG
 %}
 
@@ -14,12 +15,12 @@ addpath solvers
 addpath solvers/expipg/
 addpath utils
 
+% Oscillating masses   
 n = 32;                       % State dimension
 m = n/2;                      % Input dimension
 N = 20;                       % Horizon length
-
-% x_max = 1; u_max = 0.1;     % Random system
-x_max = 1; u_max = 0.5;       % Oscillating masses   
+x_max = 1;                    % Bound on state
+u_max = 0.5;                  % Bound on control input
 
 pp = problem_data(32,16,20,x_max,u_max,1); % Structure with problem data
 ppv = construct_vectorized(pp);            % Structure with parameters of the vectorized problem 
