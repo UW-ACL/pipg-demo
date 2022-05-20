@@ -1,25 +1,38 @@
-function sol = solve_ecos(pbm)
-    ecos_opts = ecosoptimset('ABSTOL',pbm.ecos_eps,'RELTOL',pbm.ecos_eps,'FEASTOL',pbm.ecos_eps,'VERBOSE',0);
+function sol = solve_ecos(pp,ppv)
+%{
+05/15/2022
+Purnanand Elango
+
+Solve the QP obtained by vectorizing the optimal control problem via ECOS
+
+ECOS QP format:
+     minimize   0.5 xi^T P xi + q^T xi
+    subject to  H xi = g
+                xi_min <= xi <= xi_max    
+
+Input:
+    Structure of problem data (pp)
+    Structure of vectorized problem data (ppv)
+Output:
+    Structure of solution variables and solver status
+%}
+
+    sol = struct;
+    sol.name = "ECOS";
+    sol.status = "Infeasible";
+
+    ecos_opts = ecosoptimset('ABSTOL',pp.ecos_abs_tol,'RELTOL',pp.ecos_rel_tol,'FEASTOL',pp.ecos_abs_tol,'VERBOSE',0);
     tic
-    [Z,~,exitflag,info,~] = ecosqp(pbm.vec_pbm.P,pbm.vec_pbm.p,pbm.vec_pbm.Hineq,pbm.vec_pbm.hineq,pbm.vec_pbm.Heq,pbm.vec_pbm.heq,[],[],ecos_opts);
-    solve_time = toc;
-    % solve_time = info.time;
-    sol = devec_solution(pbm,Z);
-    sol.name = 'ECOS';
-    sol.color = [0.4,0.1,0.8];
-    sol.solve_time = solve_time*1000;
-    % sol.run_time = run_time*1000;
-    if exitflag == 1
-        solve_status = '           Solved';
-    elseif exitflag == -2
-        solve_status = 'Primal infeasible';
-    elseif exitflag == -3
-        solve_status = '  Dual infeasible';
-    elseif exitflag == 0
-        solve_status = '   Max iterations';
-    else
-        error('Unsupported exitflag: %.0f',exitflag);
+    [xi,~,exit_flag,info,~] = ecosqp(ppv.P,ppv.q,[],[],ppv.H,full(ppv.g),ppv.xi_min,ppv.xi_max,ecos_opts);
+    sol.solve_time = toc*1000;
+    % sol.solve_time = info.time; 
+    % sol.obj_val = info.ecosinfo.pcost
+    sol.obj_val = 0.5*xi'*ppv.P*xi;
+    if exit_flag == 1
+        sol.status = "Feasible";
+        sol.xi = xi;
+        sol.u = reshape(xi(1:pp.m*pp.N),[pp.m,pp.N]);
+        sol.x = reshape(xi(pp.m*pp.N+1:end),[pp.n,pp.N+1]);        
     end
-    sol.solve_status = solve_status;
-    fprintf('ECOS                         %s | Run time: %05.1f ms | Cost: %.3f\n',solve_status,sol.solve_time,sol.cost);            
+
 end

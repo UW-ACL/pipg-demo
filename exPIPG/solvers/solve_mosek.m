@@ -1,27 +1,41 @@
-function sol = solve_mosek(pbm)
-    mosek_opts = struct;
-    % mosek_opts.Display = 'off'; % doesn't work
-    mosek_opts.MSK_DPAR_INTPNT_QO_TOL_PFEAS = pbm.mosek_eps;
-    mosek_opts.MSK_DPAR_INTPNT_QO_TOL_DFEAS = pbm.mosek_eps;
-    mosek_opts.MSK_DPAR_INTPNT_QO_TOL_INFEAS = pbm.mosek_eps;
-    mosek_opts.MSK_DPAR_INTPNT_QO_TOL_REL_GAP = pbm.mosek_eps;
-    tic
-    res = mskqpopt(pbm.vec_pbm.P,pbm.vec_pbm.p,pbm.vec_pbm.Hlu,pbm.vec_pbm.hl,pbm.vec_pbm.hu,[],[],mosek_opts,'minimize info echo(0)');
-    solve_time = toc;
-    sol = devec_solution(pbm,res.sol.itr.xx);
-    % sol.solve_time = res.info.MSK_DINF_OPTIMIZER_TIME*1000;
-    sol.solve_time = solve_time*1000;
-    if strcmp(res.sol.itr.solsta,'OPTIMAL')
-        sol.solve_status = '           Solved';
-    elseif strcmp(res.sol.itr.solsta,'PRIMAL_INFEASIBLE_CER')
-        sol.solve_status = 'Primal infeasible';
-    elseif strcmp(res.sol.itr.solsta,'DUAL_INFEASIBLE_CER')
-        sol.solve_status = '  Dual infeasible'; 
-    elseif strcmp(res.sol.itr.solsta,'UNKNOWN')
-        sol.solve_status = '  Numerical issue';
-        % sol.solve_status = '   Max iterations';
-    end
+function sol = solve_mosek(pp,ppv)
+%{
+05/14/2022
+Purnanand Elango
+
+Solve the QP obtained by vectorizing the optimal control problem via MOSEK
+
+MOSEK QP format:
+     minimize   0.5 xi^T P xi + q^T xi
+    subject to  g <= H xi <= g
+                xi_min <= xi <= xi_max 
+Input:
+    Structure of problem data (pp)
+    Structure of vectorized problem data (ppv)
+Output:
+    Structure of solution variables and solver status
+%}
+    sol = struct;
     sol.name = 'MOSEK';
-    sol.color = [0 0.8 0.1];
-    fprintf('MOSEK                        %s | Run time: %05.1f ms | Cost: %.3f\n',sol.solve_status,sol.solve_time,sol.cost);
+    sol.status = "Infeasible";
+
+    tic    
+    % MOSEK setting
+    mosek_opts = struct;
+    mosek_opts.MSK_DPAR_INTPNT_QO_TOL_PFEAS = pp.mosek_feas_tol;
+    mosek_opts.MSK_DPAR_INTPNT_QO_TOL_DFEAS = pp.mosek_feas_tol;
+    mosek_opts.MSK_DPAR_INTPNT_QO_TOL_INFEAS = pp.mosek_infeas_tol;
+    mosek_opts.MSK_DPAR_INTPNT_QO_TOL_REL_GAP = pp.mosek_rel_gap;
+    % Call MOSEK QP solver
+    res = mskqpopt(ppv.P,ppv.q,ppv.H,ppv.g,ppv.g,ppv.xi_min,ppv.xi_max,mosek_opts,'minimize info echo(0)');
+    sol.obj_val = 0.5*res.sol.itr.xx'*ppv.P*res.sol.itr.xx;
+    sol.solve_time = toc*1000;
+
+    if res.sol.itr.solsta == "OPTIMAL"
+        sol.xi = res.sol.itr.xx;
+        sol.u = reshape(sol.xi(1:pp.m*pp.N),[pp.m,pp.N]);
+        sol.x = reshape(sol.xi(pp.m*pp.N+1:end),[pp.n,pp.N+1]);
+        sol.status = "Feasible";
+    end
+
 end
