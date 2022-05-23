@@ -37,7 +37,7 @@ Conic optimization solver PIPG which can handle general conic constraints and co
 }
 ```
 
-Infeasibility detection using PIPG
+Infeasibility detection using PIPG.
 ```
 @misc{pipg-infeas,
   author = {Yu, Yue and Topcu, Ufuk},    
@@ -49,7 +49,7 @@ Infeasibility detection using PIPG
 }
 ```
 
-Extrapolated PIPG
+Extrapolated PIPG.
 ```
 @misc{expipg,
   author = {Yu, Yue and Elango, Purnanand and Açıkmeşe, Behçet and Topcu, Ufuk},  
@@ -61,7 +61,7 @@ Extrapolated PIPG
 }
 ```
 
-Customized PIPG for real-time powered-descent guidance
+Customized PIPG for real-time powered-descent guidance.
 ```
 @inproceedings{pipg-pdg,
   author={Elango, Purnanand and Kamath, Abhinav G. and Yu, Yue and Carson III, John M. and Mesbahi, Mehran and Açıkmeşe, Behçet}, 
