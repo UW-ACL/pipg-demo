@@ -11,7 +11,7 @@
 Conic optimization solver PIPGeq specialized to affine equality constraint and convex set constraints which allow efficient projections.
 ```
 @article{pipgeq,
-  author={Yu, Yue and Elango, Purnanand and Açıkmeşe, Behçet},
+  author={Yu, Yue and Elango, Purnanand and A\c{c}\i kme\c{s}e, Beh\c{c}et},
   journal={IEEE Control Systems Letters}, 
   title={Proportional-Integral Projected Gradient Method for Model Predictive Control}, 
   year={2021},
@@ -25,7 +25,7 @@ Conic optimization solver PIPGeq specialized to affine equality constraint and c
 Conic optimization solver PIPG which can handle general conic constraints and convex set constraints which allow efficient projections.
 ```
 @article{pipg,
-  author = {Yue Yu and Purnanand Elango and Ufuk Topcu and Behçet Açıkmeşe},
+  author = {Yue Yu and Purnanand Elango and Ufuk Topcu and Beh\c{c}et~A\c{c}\i kme\c{s}e},
   title = {Proportional–integral projected gradient method for conic optimization},
   journal = {Automatica},
   volume = {142},
@@ -52,7 +52,7 @@ Infeasibility detection using PIPG.
 Extrapolated PIPG.
 ```
 @misc{expipg,
-  author = {Yu, Yue and Elango, Purnanand and Açıkmeşe, Behçet and Topcu, Ufuk},  
+  author = {Yu, Yue and Elango, Purnanand and A\c{c}\i kme\c{s}e, Beh\c{c}et and Topcu, Ufuk},  
   title = {Extrapolated Proportional-Integral Projected Gradient Method for Conic Optimization},
   publisher = {arXiv},
   year = {2022},
@@ -64,7 +64,7 @@ Extrapolated PIPG.
 Customized PIPG for real-time powered-descent guidance.
 ```
 @inproceedings{pipg-pdg,
-  author={Elango, Purnanand and Kamath, Abhinav G. and Yu, Yue and Carson III, John M. and Mesbahi, Mehran and Açıkmeşe, Behçet}, 
+  author={Elango, Purnanand and Kamath, Abhinav G. and Yu, Yue and Carson III, John M. and Mesbahi, Mehran and A\c{c}\i kme\c{s}e, Beh\c{c}et}, 
   title={A Customized First-Order Solver for Real-Time Powered-Descent Guidance}, 
   booktitle={AIAA SciTech 2022 Forum}, 
   publisher={American Institute of Aeronautics and Astronautics}, 
