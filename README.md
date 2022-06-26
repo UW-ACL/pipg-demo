@@ -4,7 +4,7 @@
 
 - `./PIPG` contains the implementaion of PIPG for conic optimization as described in [Yu et al. 2022](https://doi.org/10.1016/j.automatica.2022.110359). The two examples in the paper are formulated in `ex1_problem_data.jl` and `ex2_problem_data.jl`. The simulations are carried out in the corresponding notebooks `ex1_problem_solve.jl` and `ex2_problem_solve.jl`.
 - `PIPGeq_demo.ipynb` implements an earlier version of PIPG (called PIPGeq) described in [Yu et al. 2020](https://doi.org/10.1109/LCSYS.2020.3044977)
-- `./exPIPG` contains the implementation of the _extrapolated_ PIPG for infeasibility detection described in [Yu et al. 2022](https://arxiv.org/abs/2203.04188). 
+- `./xPIPG` contains the implementation of the _extrapolated_ PIPG for infeasibility detection described in [Yu et al. 2022](https://arxiv.org/abs/2203.04188). 
 
 ## Citations 
 
@@ -51,13 +51,16 @@ Infeasibility detection using PIPG.
 
 Extrapolated PIPG.
 ```
-@misc{expipg,
-  author = {Yu, Yue and Elango, Purnanand and A\c{c}\i kme\c{s}e, Beh\c{c}et and Topcu, Ufuk},  
+@article{xpipg,
+  author = {Yu, Yue and Elango, Purnanand and A\c{c}\i kme\c{s}e, Beh\c{c}et and Topcu, Ufuk}, 
   title = {Extrapolated Proportional-Integral Projected Gradient Method for Conic Optimization},
-  publisher = {arXiv},
+  journal = {IEEE Control Systems Letters (accepted)},
   year = {2022},
-  doi = {10.48550/ARXIV.2203.04188},
-  url = {https://arxiv.org/abs/2203.04188}  
+  volume={},
+  number={},
+  pages={},
+  doi={10.48550/ARXIV.2203.04188},
+  url = {https://arxiv.org/abs/2203.04188}
 }
 ```
 
